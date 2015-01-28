@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>STAT 133 Team D.A.T.A.(Z) Final Project </title>
+
+<style>
+
+p.infotext {
+    text-align: center;
+}
+
+#header {
+    background-color:royalblue;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:9000px;
+    width:150px;
+    float:left;
+    padding:5px;    
+   
+}
+#section {
+    width:1080px;
+    float:left;
+    height:1650px;
+    padding:10px;
+    background-color:"http://imgur.com/lcwHqzM.jpg" ;     
+
+}
+#footer {
+    background-color:royalblue;
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:5px;      
+   height:50px;
+}
+
+</style>
+</head>
+
+<body background="http://imgur.com/lcwHqzM.jpg">
+
+<div id="header">
+<h1>STAT 133 Final Project</h1>
+</div>
+
+<div id="nav">
+Group DATA(Z):<br>
+Dongping Zhang <br>
+Aloysius Lai<br>
+Temi Lal<br>
+Ankit Aggarwal<br>
+Zubair Marediya<br>
+</div>
+
+<div id="section">
+<h1><u>Introduction</u></h1>
+<p >
+The main idea of this project is to determine the best method (using different combinations of predictors) to accurately predict the 2004 election results. After we succcessfully create the most precise method, we apply the same method to 2012 and see if it can predict accurate 2012 electon results.
+</p>
+
+<h1><u>Predictors</u></h1>
+<p >
+[227] "Percent; EDUCATIONAL ATTAINMENT - High school graduate (includes equivalency)"<br>
+[251] "Percent; EDUCATIONAL ATTAINMENT - Percent bachelor's degree or higher"<br>
+[311] "Percent; U.S. CITIZENSHIP STATUS - Foreign-born population" <br>
+[315] "Percent; U.S. CITIZENSHIP STATUS - Naturalized U.S. citizen" <br>
+[319] "Percent; U.S. CITIZENSHIP STATUS - Not a U.S. citizen"<br>
+[331] "Percent; LANGUAGE SPOKEN AT HOME - English only" <br>
+[343] "Percent; LANGUAGE SPOKEN AT HOME - Language other than English - Spanish" <br>
+[351] "Percent; LANGUAGE SPOKEN AT HOME - Language other than English - Other Indo-European languages" <br>
+[359] "Percent; LANGUAGE SPOKEN AT HOME - Language other than English - Asian and Pacific Islander languages"<br>
+[387] "Percent_EMPLOYMENT_STATUS___In_labor_force___Civilian_labor_force___Employed" <br>
+[391] "Percent; EMPLOYMENT STATUS - In labor force - Civilian labor force - Unemployed" <br>
+[395] "Percent; EMPLOYMENT STATUS - Not in labor force" <br>
+[479] "Percent; INCOME AND BENEFITS (IN 2010 INFLATION-ADJUSTED DOLLARS) - Less than $10,000" <br>
+[483] "Percent; INCOME AND BENEFITS (IN 2010 INFLATION-ADJUSTED DOLLARS) - $10,000 to $14,999" <br>
+[487] "Percent; INCOME AND BENEFITS (IN 2010 INFLATION-ADJUSTED DOLLARS) - $15,000 to $24,999" <br>
+[515] "Percent_INCOME_AND_BENEFITS_IN_2010_INFLATION_ADJUSTED_DOLLARS___$200,000_or_more<br>
+[776] "Percent_Black_Population"<br>                                                                                                             
+[777] "Percent_White_Population"<br>
+
+</p>
+
+<h1><u>Processes</u></h1>
+<h3><i>Data Mashing</i></h3>
+
+<p >
+We are given 3 different types of data: 2012 Election data(XML), 2010 Census Data(CSV) and County latitude and longitude Geographic Data in (GML). To use those data, we had to web scrape them into data frames. To properly use those data frames, we had to first clean the data up for each one.  Because some of the data were missing Alaska, and some contained Puerto Rico, we had to take them out from their respective data frames. We were able to merge the CSV data together using the GEO.id variable. To merge all the data frames together, we specifically created a new column called Merger. Merger contains the county and the state for each row. The county and state names are squished together with no space or dash and is upper case to prevent any issues merging them together.
+</p>
+
+<figure align="left">
+<a href="http://www.stat.berkeley.edu/~nolan/data/Project2012/countyVotes2012/" target="_blank">
+    <img src="http://imgur.com/FTPsQOu.jpg" width="300" border="1px"/></a>
+<!-- <img src="http://imgur.com/FTPsQOu.jpg" width="300" border="1px"> -->
+&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t" target="_blank">
+    <img src="http://imgur.com/RdX7IAk.jpg" width="300" border="1px"/></a>
+
+<!-- <img src="http://imgur.com/RdX7IAk.jpg" width="300" border="1px">  -->
+&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="http://www.stat.berkeley.edu/users/nolan/data/Project2012/counties.gml" target="_blank">
+    <img src="http://imgur.com/ZtsNQW0.jpg" width="300" border="1px"/></a>
+
+<!-- <img src="http://imgur.com/ZtsNQW0.jpg" width="300" height= "250" border="1px">
+ --><figcaption>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+2012 Election Data
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+2010 Census Data 
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+GML Data</figcaption>
+</figure>
+
+<h3><i>K<sup>th</sup> Nearest Neighbors (knn)</i></h3>
+<p >&nbsp&nbsp&nbsp&nbsp
+We hand-picked which predictors we thought would be useful, as shown above. We wanted to create a data frame with the numeric values of our predictors only. To do this, we removed all rows that contained "NA", "-", or any other non-numeric value. We created a data frame with the remaining rows and used the county names as row names so they would not interfere with the knn.cv function. Then we took the "winner04" column and stored it as "cl" to use as the cl argument in knn.cv. The cl argument is simply a factor vector with the true classifications of the rows in our training set data frame. We standardized the predictors in order to account for the fact that different variables have different ranges and variances. We then tested our knn.cv error rate with different values of k, finding that k = 5 consistently produced the best results with the 2004 data. For the 2004 election, our lowest error rate was 13.4523%. When we ran the knn.cv function using the 2012 data and k = 5, we got an error rate of 14.7382%. Thus the knn model seems like a stable method to predict election results.
+</p>
+
+<h3><i>Recursive Partition (rpart)</i></h3>
+<p >&nbsp&nbsp&nbsp&nbsp
+The Classification Tree of 2004 Election Result utilizes a set of 20 predictors selected from 2010 U.S. census data. After modifying rpart.control argument, we were able to minimize the classification error  rate (error) as low as 19.828%, using all predictors. 
+
+The rpart generated an extensive and complicated classification tree with massive overfitting data. In order to avoid overfitting data, we pruned the tree according to cross-validation estimates of misclassication error (xerror) in the complexity parameter table given by rpart. We located the value of the complexity parameter corresponding to the lowest xerror, and pruned our classification tree using this complexity parameter. </p>
+
+<p >&nbsp&nbsp&nbsp&nbsp
+After training our predictors during the process of predicting 2004 election result, we predicted 2012 election result using the same set of predictors together with the same rpart.control function arguments. The prediction generated a relatively accurate result and the error rate was as low as 13.636%. Implemented the same pruning procedure, we pruned the Classification Tree of 2012 Election Result based on the complexity parameter (cp) of the lowest cross-validation estimates of misclassication error (xerror), provided by rpart, and finalized our Classification Tree of 2012 Election Result plot. </p>
+
+<h1><u>Findings</u></h1>
+
+</div>
+
+<div><p> &nbsp&nbsp&nbsp&nbsp
+<img src="http://imgur.com/VymkGfu.jpg" width="1070" border="1px"/>
+</p>
+</div>
+<p >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+We chose k based on the 2004 election data. This graph shows how our misclassification rate changes for different values of k. We see that the error rate starts out <br>&nbsp&nbsp&nbsp&nbsp&nbsprelatively high for k = 1 and k = 2. After that, we observe a rapid decrease up to k = 5, which is the minimum. Beyond k = 5, the error rate increases gradually. It helps <br>&nbsp&nbsp&nbsp&nbsp&nbspto include more than one or two neighbors because this provides us with more information. However, beyond a certain point, it no longer makes sense to let such <br>&nbsp&nbsp&nbsp&nbsp&nbspdissimilar  counties have a say in our prediction. </p>
+
+<br>
+<br>
+<br>
+
+<div><p> &nbsp&nbsp&nbsp&nbsp
+<img src="http://imgur.com/BN0bZcY.jpg" width="1070" border="1px"></p>
+</div>
+<p >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+The knn misclassification graph for the 2012 election data is slightly different. Once again, the misclassification rate starts off relatively high. After k = 2, the error <br>&nbsp&nbsp&nbsp&nbsp&nbsprate falls up until about k = 17, which is the minimum. Beyond this point we observe the same gradual increase. The <br>&nbsp&nbsp&nbsp&nbsp&nbspdifference here is that the optimal value of k is much higher (17 vs. 5). However, using k = 5 still produces a low error rate. </p>
+
+<br>
+<br>
+<br>
+
+<div><p> &nbsp&nbsp&nbsp&nbsp
+<img style="margin:0px auto;display:block" src="http://imgur.com/0Dtz12C.jpg" width="600" border="1px"/>
+</p>
+<br></br>
+<p class = infotext >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+We note that for the 2004 election data, the K Values Errors for the K Values 1 , 2 , and 3 follow a "scattered" pattern while the remaining K Values follow a linear <br>&nbsp&nbsp&nbsp&nbsp&nbsptrend. This leads us to fit the remaining K Values of 4, 5, 6, ... , 48, 49, 50. The remaining data fits a linear model very well with a correlation of r = 0.96053. What we <br>&nbsp&nbsp&nbsp&nbsp  conclude from this plot is that for all K Values after 3, there is a linear increase in K Value Error with each increment of the K Value. </p>
+</div>
+
+<br>
+<br>
+<br>
+
+<div><p> &nbsp&nbsp&nbsp&nbsp
+<img style="margin:0px auto;display:block" src="http://imgur.com/J8oM7o6.jpg" width="600" border="1px"></p>
+</div>
+<br></br>
+<p class = infotext >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+For the 2012 election data, the same situation applies as it did for 2004, except that we truncate the K Values 1, 2, 3, 4, and 5. Again, the remaining data follows a <br>&nbsp&nbsp&nbsp&nbsp&nbsplinear trend as well with a correlation of r = 0.91254. Once again, we conclude that after we truncate the "scattered" K Values and their K Value Errors, we have a linear <br>&nbsp&nbsp&nbsp&nbsp&nbsptrend in which there is a linear increase in K Value Error with each increment of the K Value.</p>
+
+<br>
+<br>
+<br>
+
+<div><p> &nbsp&nbsp&nbsp&nbsp
+<img src="http://imgur.com/8He8E5Q.jpg" width="1070" border="1px"/>
+</p>
+</div>
+<p >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+This is the classification tree for the 2004 data. Out of our 20 predictors, rpart picks the most useful ones. This tree shows that variables such as U.S. citizenship, the <br>&nbsp&nbsp&nbsp&nbsp&nbspx-coordinate location, language spoken at home, and race were used to make splits.
+</p>
+
+<br>
+<br>
+<br>
+
+<div><p>&nbsp&nbsp&nbsp&nbsp
+<img src="http://imgur.com/QapghT8.jpg" width="1070" border="1px"></p>
+</div>
+
+<p >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+This is the classification tree for the 2012 data. Similar variables were used to make splits. Once again, U.S. citizenship, race, language spoken at home, and <br>&nbsp&nbsp&nbsp&nbsp&nbspgeography were important variables.
+</p>
+
+<br>
+<br>
+<br>
+
+<div><p>&nbsp&nbsp&nbsp&nbsp
+<img style="margin:0px auto;display:block" src="http://i.imgur.com/tWIcXaP.jpg" width="600" border="1px"></p>
+</div>
+<br></br>
+<p class = infotext >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+When comparing the two methods of rpart and knn, we see that for 2004 election data, knn was a better approach while rpart was better for 2012 election data. <br><br>
+
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+We also see that from 2004 to 2012 election data, the knn error goes from 13.4523% to 14.7382% while the rpart error goes from 19.828% to 13.626%.
+<br> <br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+This shows us that knn is a more consistent method, but that rpart can give better results, as seen for the 2012 data. What we conclude from this is that knn is a more <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspstable method that we can use with more confidence, whereas rpart is less reliable due to its inconsistency. 
+</p>
+
+<br>
+<br>
+<br>
+
+<h1>&nbsp&nbsp<u>Fancy Map</u></h1>
+<div><p>&nbsp&nbsp&nbsp&nbsp
+<img src="http://i.imgur.com/nqlpCHp.jpg" height = "600" width="1070" border="1px"></p>
+</div>
+<p >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+Every arrow in the generated graph indicates a shift in how much the indicated county (the country from which
+the arrow originates) has changed in its political <br>&nbsp&nbsp&nbsp&nbsp&nbsporientation between the 2004 and 2012 elections. A right-facing
+arrow voted Republican in the 2012 election and a left-facing arrow voted Democratic in 2012. A blue <br>&nbsp&nbsp&nbsp&nbsp&nbsparrow means
+that the county voted more Democratic in 2012 than in 2004 and a red arrow means that county voted more Republican.
+The length of the arrow indicates <br>&nbsp&nbsp&nbsp&nbsp&nbspthe magnitude of the electoral changes. So a long leftward blue arrow indicates that 
+a county voted Democratic in 2012 and was significantly more Democratic than in <br>&nbsp&nbsp&nbsp&nbsp&nbsp2004.
+</p>
+
+
+<div id="footer">
+</div>
+</body>
+</html>
